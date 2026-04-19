@@ -2,6 +2,15 @@
 
 Central configuration for machines you control. Layout follows **XDG**: everything lives under `~/.config` (and a few top-level dotfiles when you add them) so paths stay predictable across distros.
 
+## Where this repo lives
+
+| Role | Notes |
+|------|--------|
+| **Forgejo (canonical)** | Day-to-day `git push` / `pull` target. Use the **Clone** URL from your Forgejo project page (HTTPS or SSH). |
+| **GitHub (optional mirror)** | [github.com/dougfinnie/dotfiles](https://github.com/dougfinnie/dotfiles) — same tree, for visibility or tooling; **do not push to both** unless you use a deliberate mirror workflow (push to Forgejo only and let mirroring update GitHub). |
+
+For **chezmoi** and **`DOTFILES_REPO`**, any clone URL works as long as it points at this tree: pick **Forgejo** if that is your default remote, or **GitHub** if you are on a machine that only has GitHub access. After a fast-forward mirror, the result is the same.
+
 ## Principles
 
 - **Neovim “Option A”**: target **Neovim ≥ 0.11** (distro packages are fine). Plugin pins stay compatible with 0.11 until every device can move to **0.12+** together; then you can drop pins and align with upstream Kickstart.
@@ -47,31 +56,20 @@ chmod +x bootstrap.sh
 ./bootstrap.sh
 ```
 
-To initialize chezmoi from this repo (use your Forgejo clone URL):
+To initialize chezmoi from this repo, set `DOTFILES_REPO` to any clone URL for this tree (Forgejo canonical URL or GitHub mirror):
 
 ```bash
-export DOTFILES_REPO='https://YOUR-FORGEJO/dougfinnie/dotfiles.git'
+export DOTFILES_REPO='https://github.com/dougfinnie/dotfiles.git'
 ./bootstrap.sh --init
 ```
+
+Use the **Clone** URL from Forgejo instead of the line above if that is what you use day to day.
 
 Or manually:
 
 ```bash
-chezmoi init --apply 'https://YOUR-FORGEJO/dougfinnie/dotfiles.git'
+chezmoi init --apply 'https://github.com/dougfinnie/dotfiles.git'
 ```
-
-## Publish to Forgejo
-
-Create an empty repository named `dotfiles` on your Forgejo instance, then:
-
-```bash
-cd ~/dotfiles
-git remote add origin 'https://YOUR-FORGEJO/dougfinnie/dotfiles.git'
-# or SSH: git remote add origin 'git@YOUR-FORGEJO:dougfinnie/dotfiles.git'
-git push -u origin main
-```
-
-Replace `YOUR-FORGEJO` with your host (for example `git.example.com` or `code.example.org`). Use HTTPS or SSH to match how you authenticate.
 
 ## Local overrides and secrets
 
