@@ -11,6 +11,12 @@ Central configuration for machines you control. Layout follows **XDG**: everythi
 
 For **chezmoi** and **`DOTFILES_REPO`**, any clone URL works as long as it points at this tree: pick **Forgejo** if that is your default remote, or **GitHub** if you are on a machine that only has GitHub access. After a fast-forward mirror, the result is the same.
 
+### Git workflow (on your machines)
+
+- **Clone** from either host; content should match if mirroring is set up.
+- **`origin`** should usually be your **Forgejo** URL so `git push` updates the canonical repo.
+- If you only cloned from GitHub, add Forgejo and point `origin` at it, or push explicitly: `git push forgejo main` (whatever remote name you use).
+
 ## Principles
 
 - **Neovim “Option A”**: target **Neovim ≥ 0.11** (distro packages are fine). Plugin pins stay compatible with 0.11 until every device can move to **0.12+** together; then you can drop pins and align with upstream Kickstart.
@@ -56,16 +62,16 @@ chmod +x bootstrap.sh
 ./bootstrap.sh
 ```
 
-To initialize chezmoi from this repo, set `DOTFILES_REPO` to any clone URL for this tree (Forgejo canonical URL or GitHub mirror):
+To initialize chezmoi from this repo, run `./bootstrap.sh --init`. It uses the **GitHub mirror URL by default** (no env var needed).
+
+To point chezmoi at **Forgejo** instead, set `DOTFILES_REPO` to the URL from Forgejo → **Clone** (HTTPS or SSH), then run `./bootstrap.sh --init`:
 
 ```bash
-export DOTFILES_REPO='https://github.com/dougfinnie/dotfiles.git'
+export DOTFILES_REPO='https://…'   # paste your Forgejo clone URL here
 ./bootstrap.sh --init
 ```
 
-Use the **Clone** URL from Forgejo instead of the line above if that is what you use day to day.
-
-Or manually:
+Or manually (same URLs as above):
 
 ```bash
 chezmoi init --apply 'https://github.com/dougfinnie/dotfiles.git'

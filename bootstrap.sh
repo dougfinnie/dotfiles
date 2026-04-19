@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 # Verify toolchain for this dotfiles repo (Linux / WSL). Does not elevate privileges.
+#
+# Remotes: Forgejo is canonical for pushes; GitHub may mirror the same tree.
+# For `chezmoi init`, any HTTPS/SSH clone URL works — see README "Where this repo lives".
 set -euo pipefail
 
 MIN_NVIM='0.11'
+# Default clone URL for --init (GitHub mirror); override with Forgejo or another URL.
+DOTFILES_REPO_DEFAULT='https://github.com/dougfinnie/dotfiles.git'
 DOTFILES_REPO="${DOTFILES_REPO:-}"
 
 die() {
@@ -47,8 +52,9 @@ check_chezmoi() {
 
 usage() {
   echo "Usage: $0 [--init] [--help]"
-  echo "  --init   run: chezmoi init --apply \"\$DOTFILES_REPO\" (set DOTFILES_REPO first)"
-  echo "  Env:     DOTFILES_REPO=https://github.com/you/dotfiles.git"
+  echo "  --init   run: chezmoi init --apply <url>"
+  echo "  If DOTFILES_REPO is unset, uses GitHub mirror: $DOTFILES_REPO_DEFAULT"
+  echo "  Override: DOTFILES_REPO=<forgejo-or-other-clone-url> $0 --init"
 }
 
 main() {
@@ -70,15 +76,20 @@ main() {
   fi
 
   if [[ "$do_init" -eq 1 ]]; then
-    [[ -n "$DOTFILES_REPO" ]] || die "Set DOTFILES_REPO to your git URL (see README)."
-    echo "Running: chezmoi init --apply $DOTFILES_REPO"
-    chezmoi init --apply "$DOTFILES_REPO"
+    local url="$DOTFILES_REPO_DEFAULT"
+    if [[ -n "${DOTFILES_REPO:-}" ]]; then
+      url="$DOTFILES_REPO"
+    else
+      echo "DOTFILES_REPO unset — using default (GitHub mirror). Set DOTFILES_REPO to use Forgejo or another URL."
+    fi
+    echo "Running: chezmoi init --apply $url"
+    chezmoi init --apply "$url"
     echo "Done. Review changes with: chezmoi diff"
     exit 0
   fi
 
   echo "All checks passed."
-  echo "Next: add this repo as chezmoi source, or run: DOTFILES_REPO=<url> $0 --init"
+  echo "Next: add this repo as chezmoi source, or run: $0 --init (optional: DOTFILES_REPO=<url>)"
 }
 
 main "$@"
