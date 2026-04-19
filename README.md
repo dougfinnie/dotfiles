@@ -47,20 +47,31 @@ chmod +x bootstrap.sh
 ./bootstrap.sh
 ```
 
-To initialize chezmoi from this repo (adjust the URL for your fork):
+To initialize chezmoi from this repo (use your Forgejo clone URL):
 
 ```bash
-export DOTFILES_REPO='https://github.com/dougfinnie/dotfiles.git'
+export DOTFILES_REPO='https://YOUR-FORGEJO/dougfinnie/dotfiles.git'
 ./bootstrap.sh --init
 ```
 
 Or manually:
 
 ```bash
-chezmoi init --apply https://github.com/dougfinnie/dotfiles.git
+chezmoi init --apply 'https://YOUR-FORGEJO/dougfinnie/dotfiles.git'
 ```
 
-(Use your real repository URL.)
+## Publish to Forgejo
+
+Create an empty repository named `dotfiles` on your Forgejo instance, then:
+
+```bash
+cd ~/dotfiles
+git remote add origin 'https://YOUR-FORGEJO/dougfinnie/dotfiles.git'
+# or SSH: git remote add origin 'git@YOUR-FORGEJO:dougfinnie/dotfiles.git'
+git push -u origin main
+```
+
+Replace `YOUR-FORGEJO` with your host (for example `git.example.com` or `code.example.org`). Use HTTPS or SSH to match how you authenticate.
 
 ## Local overrides and secrets
 
