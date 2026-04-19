@@ -6,8 +6,8 @@
 set -euo pipefail
 
 MIN_NVIM='0.11'
-# Default clone URL for --init (GitHub mirror); override with Forgejo or another URL.
-DOTFILES_REPO_DEFAULT='https://github.com/dougfinnie/dotfiles.git'
+# Default clone URL for --init (Forgejo / origin). Override e.g. with GitHub mirror if Forgejo is unreachable.
+DOTFILES_REPO_DEFAULT='ssh://git@mintie.grouse-matrix.ts.net:222/doug/dotfiles.git'
 DOTFILES_REPO="${DOTFILES_REPO:-}"
 
 die() {
@@ -53,8 +53,8 @@ check_chezmoi() {
 usage() {
   echo "Usage: $0 [--init] [--help]"
   echo "  --init   run: chezmoi init --apply <url>"
-  echo "  If DOTFILES_REPO is unset, uses GitHub mirror: $DOTFILES_REPO_DEFAULT"
-  echo "  Override: DOTFILES_REPO=<forgejo-or-other-clone-url> $0 --init"
+  echo "  If DOTFILES_REPO is unset, uses Forgejo (canonical): $DOTFILES_REPO_DEFAULT"
+  echo "  Override: DOTFILES_REPO=<url> $0 --init   (e.g. GitHub mirror URL)"
 }
 
 main() {
@@ -80,7 +80,7 @@ main() {
     if [[ -n "${DOTFILES_REPO:-}" ]]; then
       url="$DOTFILES_REPO"
     else
-      echo "DOTFILES_REPO unset — using default (GitHub mirror). Set DOTFILES_REPO to use Forgejo or another URL."
+      echo "DOTFILES_REPO unset — using default (Forgejo). Set DOTFILES_REPO to override (e.g. GitHub mirror)."
     fi
     echo "Running: chezmoi init --apply $url"
     chezmoi init --apply "$url"

@@ -9,7 +9,7 @@ Central configuration for machines you control. Layout follows **XDG**: everythi
 | **Forgejo (canonical)** | Day-to-day `git push` / `pull` target. Use the **Clone** URL from your Forgejo project page (HTTPS or SSH). |
 | **GitHub (optional mirror)** | [github.com/dougfinnie/dotfiles](https://github.com/dougfinnie/dotfiles) — same tree, for visibility or tooling; **do not push to both** unless you use a deliberate mirror workflow (push to Forgejo only and let mirroring update GitHub). |
 
-For **chezmoi** and **`DOTFILES_REPO`**, any clone URL works as long as it points at this tree: pick **Forgejo** if that is your default remote, or **GitHub** if you are on a machine that only has GitHub access. After a fast-forward mirror, the result is the same.
+For **chezmoi** and **`DOTFILES_REPO`**, any clone URL works as long as it points at this tree. **`bootstrap.sh --init`** defaults to the **Forgejo** remote; set **`DOTFILES_REPO`** to the **GitHub mirror** on a machine that cannot reach Forgejo. After a fast-forward mirror, the result is the same.
 
 ### Git workflow (on your machines)
 
@@ -62,19 +62,19 @@ chmod +x bootstrap.sh
 ./bootstrap.sh
 ```
 
-To initialize chezmoi from this repo, run `./bootstrap.sh --init`. It uses the **GitHub mirror URL by default** (no env var needed).
+To initialize chezmoi from this repo, run `./bootstrap.sh --init`. It uses the **Forgejo** clone URL by default (same idea as `git remote get-url origin` — SSH in this repo).
 
-To point chezmoi at **Forgejo** instead, set `DOTFILES_REPO` to the URL from Forgejo → **Clone** (HTTPS or SSH), then run `./bootstrap.sh --init`:
+To use the **GitHub mirror** instead (e.g. no route to Forgejo), set `DOTFILES_REPO` first:
 
 ```bash
-export DOTFILES_REPO='https://…'   # paste your Forgejo clone URL here
+export DOTFILES_REPO='https://github.com/dougfinnie/dotfiles.git'
 ./bootstrap.sh --init
 ```
 
-Or manually (same URLs as above):
+Or manually:
 
 ```bash
-chezmoi init --apply 'https://github.com/dougfinnie/dotfiles.git'
+chezmoi init --apply 'ssh://git@mintie.grouse-matrix.ts.net:222/doug/dotfiles.git'
 ```
 
 ## Local overrides and secrets
