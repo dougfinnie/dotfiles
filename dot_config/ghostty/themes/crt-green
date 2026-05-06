@@ -1,0 +1,23 @@
+# Green phosphor CRT
+background = #0a0a0a
+foreground = #00ff00
+cursor-color = #00ff00
+selection-background = #005500
+selection-foreground = #00ff00
+
+palette = 0=#0a0a0a
+palette = 1=#007700
+palette = 2=#00ff00
+palette = 3=#00cc66
+palette = 4=#009933
+palette = 5=#00bb88
+palette = 6=#00ddaa
+palette = 7=#33ff33
+palette = 8=#005500
+palette = 9=#00aa00
+palette = 10=#33ff33
+palette = 11=#66ff66
+palette = 12=#00cc44
+palette = 13=#00dd99
+palette = 14=#00eebb
+palette = 15=#ccffcc

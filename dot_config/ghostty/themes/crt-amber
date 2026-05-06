@@ -1,0 +1,23 @@
+# Warm amber phosphor CRT
+background = #0a0800
+foreground = #ffb000
+cursor-color = #ffb000
+selection-background = #554400
+selection-foreground = #ffb000
+
+palette = 0=#0a0800
+palette = 1=#774400
+palette = 2=#ffb000
+palette = 3=#cc8800
+palette = 4=#996600
+palette = 5=#bb8800
+palette = 6=#ddaa00
+palette = 7=#ffc633
+palette = 8=#553300
+palette = 9=#aa7700
+palette = 10=#ffc633
+palette = 11=#ffd966
+palette = 12=#cc9900
+palette = 13=#ddbb44
+palette = 14=#eedd66
+palette = 15=#fff2cc

@@ -1,0 +1,18 @@
+# Swap between crt-green and crt-amber
+theme = crt-green
+
+font-family = "FiraCode Nerd Font"
+font-size = 14
+
+background-opacity = 0.85
+
+# CRT shader — tweaked copy of in-game-crt with reduced bloom and stronger scanlines.
+# Bloom is built into the CRT shader so the separate bloom.glsl is no longer needed.
+# Base shaders: https://github.com/hackr-sh/ghostty-shaders
+custom-shader = ~/.config/ghostty/crt-tweaked.glsl
+
+# GNOME uses Ctrl+Alt+Arrow for workspaces, so default split navigation often never reaches Ghostty.
+keybind = ctrl+shift+alt+arrow_up=goto_split:up
+keybind = ctrl+shift+alt+arrow_down=goto_split:down
+keybind = ctrl+shift+alt+arrow_left=goto_split:left
+keybind = ctrl+shift+alt+arrow_right=goto_split:right
