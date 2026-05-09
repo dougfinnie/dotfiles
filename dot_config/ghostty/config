@@ -1,6 +1,9 @@
 # Swap between crt-green and crt-amber
 theme = crt-green
 
+# GNOME/desktop sessions often still export SHELL=bash after chsh; force zsh here.
+command = /usr/bin/zsh
+
 font-family = "FiraCode Nerd Font"
 font-size = 14
 
