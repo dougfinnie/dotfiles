@@ -19,7 +19,7 @@ For **chezmoi** and **`DOTFILES_REPO`**, any clone URL works as long as it point
 
 ## Principles
 
-- **Neovim “Option A”**: target **Neovim ≥ 0.11** (distro packages are fine). Plugin pins stay compatible with 0.11 until every device can move to **0.12+** together; then you can drop pins and align with upstream Kickstart.
+- **Neovim**: [LazyVim](https://www.lazyvim.org/) starter under `~/.config/nvim` (managed as `dot_config/nvim`). Requires **Neovim ≥ 0.11**; first launch or `nvim --headless "+Lazy! sync" +qa` installs plugins into `~/.local/share/nvim` (not in this repo).
 - **One tool to merge host differences**: [chezmoi](https://chezmoi.io/) templates and `data` values instead of forking the repo per machine.
 - **Secrets never committed**: use ignored `*.local` files, `chezmoi edit` with encryption later (e.g. age), or a password manager—not this repository.
 
