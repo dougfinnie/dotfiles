@@ -39,6 +39,11 @@ check_core() {
   echo "make — ok"
 }
 
+check_tmux() {
+  have_cmd tmux || die "tmux not found. Install tmux (e.g. Fedora: sudo dnf install tmux)."
+  echo "tmux $(tmux -V | awk '{print $2}') — ok"
+}
+
 check_chezmoi() {
   if have_cmd chezmoi; then
     echo "chezmoi $(chezmoi --version | head -n1) — ok"
@@ -70,6 +75,7 @@ main() {
 
   echo "=== dotfiles bootstrap (Option A: Neovim >= $MIN_NVIM) ==="
   check_core
+  check_tmux
   check_nvim
   if ! check_chezmoi; then
     die "Install chezmoi, ensure it is on PATH, then re-run."

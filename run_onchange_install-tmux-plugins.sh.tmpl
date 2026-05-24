@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Re-run when tmux.conf changes: {{ include "dot_config/tmux/tmux.conf" | sha256sum }}
+set -euo pipefail
+
+plugin_dir="${HOME}/.config/tmux/plugins"
+tpm="${plugin_dir}/tpm"
+conf="${HOME}/.config/tmux/tmux.conf"
+
+if [[ ! -d "${tpm}/.git" ]]; then
+  mkdir -p "${plugin_dir}"
+  git clone https://github.com/tmux-plugins/tpm.git "${tpm}"
+fi
+
+if [[ -f "${conf}" ]]; then
+  "${tpm}/bin/install_plugins" "${conf}"
+fi

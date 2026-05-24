@@ -20,6 +20,7 @@ For **chezmoi** and **`DOTFILES_REPO`**, any clone URL works as long as it point
 ## Principles
 
 - **Neovim**: [LazyVim](https://www.lazyvim.org/) starter under `~/.config/nvim` (managed as `dot_config/nvim`). Requires **Neovim ≥ 0.11**; first launch or `nvim --headless "+Lazy! sync" +qa` installs plugins into `~/.local/share/nvim` (not in this repo).
+- **tmux**: config under `~/.config/tmux` with [TPM](https://github.com/tmux-plugins/tpm) and [Catppuccin](https://github.com/catppuccin/tmux) (mocha). `chezmoi apply` clones TPM and installs plugins; update later with `prefix + I` in tmux.
 - **One tool to merge host differences**: [chezmoi](https://chezmoi.io/) templates and `data` values instead of forking the repo per machine.
 - **Secrets never committed**: use ignored `*.local` files, `chezmoi edit` with encryption later (e.g. age), or a password manager—not this repository.
 
@@ -45,6 +46,7 @@ Edit in the source tree or use `chezmoi edit ~/.config/nvim/init.lua`, then `che
 ## Prerequisites
 
 - `git`, `make` (some Neovim plugins compile native parts)
+- **tmux** (`tmux -V`)
 - **Neovim ≥ 0.11** (`nvim --version`)
 - [chezmoi](https://chezmoi.io/install/) installed and on `PATH`
 
