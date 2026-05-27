@@ -20,8 +20,9 @@ For **chezmoi** and **`DOTFILES_REPO`**, any clone URL works as long as it point
 ## Principles
 
 - **Neovim**: [LazyVim](https://www.lazyvim.org/) starter under `~/.config/nvim` (managed as `dot_config/nvim`). Requires **Neovim ≥ 0.11**; first launch or `nvim --headless "+Lazy! sync" +qa` installs plugins into `~/.local/share/nvim` (not in this repo).
-- **tmux**: config under `~/.config/tmux` with [TPM](https://github.com/tmux-plugins/tpm) and [Catppuccin](https://github.com/catppuccin/tmux) (mocha). `chezmoi apply` clones TPM and installs plugins; update later with `prefix + I` in tmux.
+- **tmux**: config under `~/.config/tmux` with [TPM](https://github.com/tmux-plugins/tpm) and [Catppuccin](https://github.com/catppuccin/tmux) (mocha). New panes use `/usr/bin/zsh` (same `~/.zshrc` as Ghostty). `chezmoi apply` clones TPM and installs plugins; update later with `prefix + I` in tmux.
 - **fzf**: [junegunn/fzf](https://github.com/junegunn/fzf) for shell fuzzy finding and LazyVim pickers. Bash loads `~/.bashrc.d/fzf.sh`; zsh sources `fzf --zsh` from `~/.zshrc`. Neovim uses the LazyVim `fzf-lua` extra (`<leader>ff`, `<leader>fg`, etc.). Key bindings: `CTRL-T` (files), `CTRL-R` (history), `ALT-C` (cd).
+- **zsh**: [Oh My Zsh](https://ohmyzsh.sh/) with [Spaceship](https://spaceship-prompt.sh/), [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions), and [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting). `chezmoi apply` clones into `~/.oh-my-zsh` and `~/.zsh/spaceship` (not tracked in this repo). Ghostty defaults to zsh via `command = /usr/bin/zsh`.
 - **One tool to merge host differences**: [chezmoi](https://chezmoi.io/) templates and `data` values instead of forking the repo per machine.
 - **Secrets never committed**: use ignored `*.local` files, `chezmoi edit` with encryption later (e.g. age), or a password manager—not this repository.
 
@@ -47,6 +48,7 @@ Edit in the source tree or use `chezmoi edit ~/.config/nvim/init.lua`, then `che
 ## Prerequisites
 
 - `git`, `make` (some Neovim plugins compile native parts)
+- **zsh** (`zsh --version`; Fedora: `sudo dnf install zsh`)
 - **fzf** (`fzf --version`; Fedora: `sudo dnf install fzf`)
 - **tmux** (`tmux -V`)
 - **Neovim ≥ 0.11** (`nvim --version`)

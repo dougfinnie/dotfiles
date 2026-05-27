@@ -49,6 +49,11 @@ check_fzf() {
   echo "fzf $(fzf --version | head -n1) — ok"
 }
 
+check_zsh() {
+  have_cmd zsh || die "zsh not found. Install zsh (e.g. Fedora: sudo dnf install zsh)."
+  echo "zsh $(zsh --version | head -n1) — ok"
+}
+
 check_chezmoi() {
   if have_cmd chezmoi; then
     echo "chezmoi $(chezmoi --version | head -n1) — ok"
@@ -82,6 +87,7 @@ main() {
   check_core
   check_tmux
   check_fzf
+  check_zsh
   check_nvim
   if ! check_chezmoi; then
     die "Install chezmoi, ensure it is on PATH, then re-run."
