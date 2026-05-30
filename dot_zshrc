@@ -5,6 +5,12 @@ SAVEHIST=10000
 setopt autocd extendedglob nomatch
 unsetopt beep notify
 
+# User-specific environment (mirrors dot_bashrc PATH so ~/.local/bin tools work in zsh)
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
+  PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
+
 # Oh My Zsh — cloned on chezmoi apply (see run_onchange_install-zsh-omz.sh)
 export ZSH="$HOME/.oh-my-zsh"
 
