@@ -1,41 +1,5 @@
-# Shell history and options
-HISTFILE=~/.histfile
-HISTSIZE=10000
-SAVEHIST=10000
-setopt autocd extendedglob nomatch
-unsetopt beep notify
-
-# User-specific environment (mirrors dot_bashrc PATH so ~/.local/bin tools work in zsh)
-if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
-  PATH="$HOME/.local/bin:$HOME/bin:$PATH"
-fi
-export PATH
-
-# Oh My Zsh — cloned on chezmoi apply (see run_onchange_install-zsh-omz.sh)
-export ZSH="$HOME/.oh-my-zsh"
-
-ZSH_THEME="spaceship"
-
-plugins=(
-  git
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-)
-
-# Must be set before oh-my-zsh loads zsh-autosuggestions
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#663399,standout"
-ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="20"
-ZSH_AUTOSUGGEST_USE_ASYNC=1
-
-source $ZSH/oh-my-zsh.sh
-
-# fzf key bindings and fuzzy completion (CTRL-T / CTRL-R / ALT-C, ** completion).
-# https://github.com/junegunn/fzf#setting-up-shell-integration
-if command -v fzf >/dev/null 2>&1; then
-  [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/fzf/env.sh" ]] && source "${XDG_CONFIG_HOME:-$HOME/.config}/fzf/env.sh"
-  source <(fzf --zsh)
-fi
-
-# Aliases
-alias ed='nvim ~/.zshrc'
-alias refresh='source ~/.zshrc'
+# Thin entrypoint — modules live in ~/.config/zsh (chezmoi: dot_config/zsh).
+for _zsh_mod in "${XDG_CONFIG_HOME:-$HOME/.config}"/zsh/*.zsh(N); do
+  source "$_zsh_mod"
+done
+unset _zsh_mod
