@@ -21,8 +21,8 @@ For **chezmoi** and **`DOTFILES_REPO`**, any clone URL works as long as it point
 
 - **Neovim**: [LazyVim](https://www.lazyvim.org/) starter under `~/.config/nvim` (managed as `dot_config/nvim`). Requires **Neovim ≥ 0.11**; first launch or `nvim --headless "+Lazy! sync" +qa` installs plugins into `~/.local/share/nvim` (not in this repo).
 - **tmux**: config under `~/.config/tmux` with [TPM](https://github.com/tmux-plugins/tpm) and [Catppuccin](https://github.com/catppuccin/tmux) (mocha). New panes use `/usr/bin/zsh` (same `~/.zshrc` as Ghostty). `chezmoi apply` clones TPM and installs plugins; update later with `prefix + I` in tmux.
-- **fzf**: [junegunn/fzf](https://github.com/junegunn/fzf) for shell fuzzy finding and LazyVim pickers. Bash loads `~/.bashrc.d/fzf.sh`; zsh sources `fzf --zsh` from `~/.zshrc`. Neovim uses the LazyVim `fzf-lua` extra (`<leader>ff`, `<leader>fg`, etc.). Key bindings: `CTRL-T` (files), `CTRL-R` (history), `ALT-C` (cd).
-- **zsh**: [Oh My Zsh](https://ohmyzsh.sh/) with [Spaceship](https://spaceship-prompt.sh/), [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions), and [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting). `chezmoi apply` clones into `~/.oh-my-zsh` and `~/.zsh/spaceship` (not tracked in this repo). Ghostty defaults to zsh via `command = /usr/bin/zsh`.
+- **fzf**: [junegunn/fzf](https://github.com/junegunn/fzf) for shell fuzzy finding and LazyVim pickers. Bash loads `~/.bashrc.d/fzf.sh`; zsh sources shared `~/.config/fzf/env.sh` then `fzf --zsh`. Neovim uses the LazyVim `fzf-lua` extra (`<leader>ff`, `<leader>fg`, etc.). Key bindings: `CTRL-T` (files), `CTRL-R` (history), `ALT-C` (cd).
+- **zsh**: Bare modular config under `~/.config/zsh` (thin `~/.zshrc` loader) — no Oh My Zsh. [Starship](https://starship.rs/) prompt (`chezmoi apply` installs the binary to `~/.local/bin` when missing), [zoxide](https://github.com/ajeetdsouza/zoxide), Fedora packages for [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) / [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting), plus guarded `bat`/`eza` aliases. Ghostty defaults to zsh via `command = /usr/bin/zsh`. Leftover `~/.oh-my-zsh` / `~/.zsh/spaceship` from older applies can be removed manually.
 - **One tool to merge host differences**: [chezmoi](https://chezmoi.io/) templates and `data` values instead of forking the repo per machine.
 - **Secrets never committed**: use ignored `*.local` files, `chezmoi edit` with encryption later (e.g. age), or a password manager—not this repository.
 
@@ -50,9 +50,17 @@ Edit in the source tree or use `chezmoi edit ~/.config/nvim/init.lua`, then `che
 - `git`, `make` (some Neovim plugins compile native parts)
 - **zsh** (`zsh --version`; Fedora: `sudo dnf install zsh`)
 - **fzf** (`fzf --version`; Fedora: `sudo dnf install fzf`)
+- **zoxide** (`zoxide --version`; Fedora: `sudo dnf install zoxide`)
+- **starship** — installed to `~/.local/bin` by `chezmoi apply` when missing ([starship.rs](https://starship.rs/))
 - **tmux** (`tmux -V`)
 - **Neovim ≥ 0.11** (`nvim --version`)
 - [chezmoi](https://chezmoi.io/install/) installed and on `PATH`
+
+Optional (zsh still starts without them):
+
+```bash
+sudo dnf install bat eza fd-find zsh-autosuggestions zsh-syntax-highlighting
+```
 
 ### WSL notes
 

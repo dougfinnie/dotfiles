@@ -54,6 +54,42 @@ check_zsh() {
   echo "zsh $(zsh --version | head -n1) — ok"
 }
 
+check_starship() {
+  if have_cmd starship; then
+    echo "starship $(starship --version | head -n1) — ok"
+    return 0
+  fi
+  echo "starship — missing (run chezmoi apply to install into ~/.local/bin; see https://starship.rs/)"
+  return 0
+}
+
+check_zoxide() {
+  have_cmd zoxide || die "zoxide not found. Install zoxide (e.g. Fedora: sudo dnf install zoxide)."
+  echo "zoxide $(zoxide --version | head -n1) — ok"
+}
+
+warn_optional_zsh() {
+  # Nice-to-haves: shell still starts without them (gated in ~/.config/zsh).
+  local pkg
+  for pkg in bat eza fd; do
+    if have_cmd "$pkg"; then
+      echo "$pkg — ok (optional)"
+    else
+      echo "$pkg — missing (optional; Fedora: sudo dnf install bat eza fd-find)"
+    fi
+  done
+  if [[ -r /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+    echo "zsh-autosuggestions — ok (optional package)"
+  else
+    echo "zsh-autosuggestions — missing (optional; Fedora: sudo dnf install zsh-autosuggestions)"
+  fi
+  if [[ -r /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+    echo "zsh-syntax-highlighting — ok (optional package)"
+  else
+    echo "zsh-syntax-highlighting — missing (optional; Fedora: sudo dnf install zsh-syntax-highlighting)"
+  fi
+}
+
 check_chezmoi() {
   if have_cmd chezmoi; then
     echo "chezmoi $(chezmoi --version | head -n1) — ok"
@@ -88,6 +124,9 @@ main() {
   check_tmux
   check_fzf
   check_zsh
+  check_zoxide
+  check_starship
+  warn_optional_zsh
   check_nvim
   if ! check_chezmoi; then
     die "Install chezmoi, ensure it is on PATH, then re-run."
