@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Re-run when zsh modules change: {{ range (glob "dot_config/zsh/*.zsh") }}{{ include . | sha256sum }}{{ end }}{{ include "dot_zshrc" | sha256sum }}
+set -euo pipefail
+
+bin_dir="${HOME}/.local/bin"
+mkdir -p "${bin_dir}"
+
+if command -v starship >/dev/null 2>&1; then
+  exit 0
+fi
+
+if [[ -x "${bin_dir}/starship" ]]; then
+  exit 0
+fi
+
+echo "chezmoi: installing starship into ${bin_dir}"
+curl -fsSL https://starship.rs/install.sh | sh -s -- -y -b "${bin_dir}"
