@@ -14,8 +14,15 @@ background-opacity = 0.85
 # Base shaders: https://github.com/hackr-sh/ghostty-shaders
 custom-shader = ~/.config/ghostty/crt-tweaked.glsl
 
-# GNOME uses Ctrl+Alt+Arrow for workspaces, so default split navigation often never reaches Ghostty.
-keybind = ctrl+shift+alt+arrow_up=goto_split:up
-keybind = ctrl+shift+alt+arrow_down=goto_split:down
-keybind = ctrl+shift+alt+arrow_left=goto_split:left
-keybind = ctrl+shift+alt+arrow_right=goto_split:right
+# UK ISO: match tmux muscle memory — " is Shift+2, % is Shift+5 (no prefix).
+keybind = ctrl+shift+digit_2=new_split:down
+keybind = ctrl+shift+digit_5=new_split:right
+
+# Pane focus — same as tmux (prefix is Ctrl+A, matching ~/.config/tmux/tmux.conf).
+# Double Ctrl+A sends a literal Ctrl+A through to the shell (readline, etc.).
+keybind = ctrl+a>arrow_up=goto_split:up
+keybind = ctrl+a>arrow_down=goto_split:down
+keybind = ctrl+a>arrow_left=goto_split:left
+keybind = ctrl+a>arrow_right=goto_split:right
+keybind = ctrl+a>o=goto_split:next
+keybind = ctrl+a>ctrl+a=text:\x01
