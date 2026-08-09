@@ -23,6 +23,7 @@ For **chezmoi** and **`DOTFILES_REPO`**, any clone URL works as long as it point
 - **tmux**: config under `~/.config/tmux` with [TPM](https://github.com/tmux-plugins/tpm) and [Catppuccin](https://github.com/catppuccin/tmux) (mocha). New panes use `/usr/bin/zsh` (same `~/.zshrc` as Ghostty). `chezmoi apply` clones TPM and installs plugins; update later with `prefix + I` in tmux.
 - **fzf**: [junegunn/fzf](https://github.com/junegunn/fzf) for shell fuzzy finding and LazyVim pickers. Bash loads `~/.bashrc.d/fzf.sh`; zsh sources shared `~/.config/fzf/env.sh` then `fzf --zsh`. Neovim uses the LazyVim `fzf-lua` extra (`<leader>ff`, `<leader>fg`, etc.). Key bindings: `CTRL-T` (files), `CTRL-R` (history), `ALT-C` (cd).
 - **zsh**: Bare modular config under `~/.config/zsh` (thin `~/.zshrc` loader) — no Oh My Zsh. [Starship](https://starship.rs/) prompt (`chezmoi apply` installs the binary to `~/.local/bin` when missing), [zoxide](https://github.com/ajeetdsouza/zoxide), Fedora packages for [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) / [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting), plus guarded `bat`/`eza` aliases. Ghostty defaults to zsh via `command = /usr/bin/zsh`. Leftover `~/.oh-my-zsh` / `~/.zsh/spaceship` from older applies can be removed manually.
+- **Cursor global rules**: always-apply Agent preferences live in `~/.cursor/rules/*.mdc` (source: `dot_cursor/rules`). That is the portable replacement for Customize → User Rules. Edit with `chezmoi edit ~/.cursor/rules/...`, then `chezmoi apply`. Clear any leftover text in **Customize → User Rules** so rules are not double-injected. Per-repo `.cursor/` notes remain local working memory and stay gitignored in projects.
 - **One tool to merge host differences**: [chezmoi](https://chezmoi.io/) templates and `data` values instead of forking the repo per machine.
 - **Secrets never committed**: use ignored `*.local` files, `chezmoi edit` with encryption later (e.g. age), or a password manager—not this repository.
 
@@ -33,6 +34,7 @@ From the repo root, paths map like this:
 | In this repo        | On disk          |
 |---------------------|------------------|
 | `dot_config/foo`    | `~/.config/foo`  |
+| `dot_cursor/rules`  | `~/.cursor/rules` (global Cursor Agent User Rules as `.mdc`) |
 | `dot_bashrc`        | `~/.bashrc`      |
 | `.chezmoi.toml.tmpl`| `~/.config/chezmoi/chezmoi.toml` (generated) |
 

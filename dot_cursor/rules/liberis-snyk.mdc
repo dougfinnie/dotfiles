@@ -1,0 +1,8 @@
+---
+description: Use Snyk MCP in Liberis codebases for security
+alwaysApply: true
+---
+
+# Liberis security
+
+Utilise the Snyk MCP when within Liberis codebases to ensure we don't introduce security issues.

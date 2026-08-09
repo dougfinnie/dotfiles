@@ -101,6 +101,18 @@ check_chezmoi() {
   return 1
 }
 
+check_cursor_rules() {
+  # Global Agent rules (chezmoi: dot_cursor/rules) — not per-repo .cursor notes.
+  local n
+  n=$(find "${HOME}/.cursor/rules" -maxdepth 1 -name '*.mdc' 2>/dev/null | wc -l)
+  if [[ "$n" -gt 0 ]]; then
+    echo "Cursor global rules — ok ($n .mdc under ~/.cursor/rules)"
+    return 0
+  fi
+  echo "Cursor global rules — missing (run chezmoi apply; see ~/.cursor/rules). Clear Customize → User Rules after apply to avoid duplicates."
+  return 0
+}
+
 usage() {
   echo "Usage: $0 [--init] [--help]"
   echo "  --init   run: chezmoi init --apply <url>"
@@ -131,6 +143,7 @@ main() {
   if ! check_chezmoi; then
     die "Install chezmoi, ensure it is on PATH, then re-run."
   fi
+  check_cursor_rules
 
   if [[ "$do_init" -eq 1 ]]; then
     local url="$DOTFILES_REPO_DEFAULT"

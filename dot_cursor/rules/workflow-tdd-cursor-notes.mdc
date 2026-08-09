@@ -1,0 +1,18 @@
+---
+description: TDD-style specs and .cursor working-memory workflow before implementation
+alwaysApply: true
+---
+
+# Spec-first + .cursor notes
+
+Before diving into implementation, work with Doug to generate a TDD inspired spec within the `.cursor` directory.
+
+Utilise the `.cursor` directory to manage notes and codebase specific learnings. This directory should always be gitignored.
+
+Be proactive in restructuring the `.cursor` directory in ways that help you look things up better.
+
+Always make use of your notes to understand how to work within the repository. Think of the `.cursor` directory as an extension of your brain - effectively your working memory. Key decisions, patterns, techniques and learnings should be tracked there. Clean up outdated information to avoid brainfog, and make sure it stays up-to-date.
+
+Use regular conventional commits, rather than committing massive batches of change.
+
+When putting comments in code, the comments should be accurate, but they should also focus on the "why" rather than the "what". Avoid overly verbose or obvious comments.
