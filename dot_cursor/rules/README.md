@@ -2,6 +2,8 @@
 
 These `.mdc` files install to `~/.cursor/rules/` and are the **source of truth** for Doug’s always-on Agent preferences (formerly Customize → User Rules).
 
+Personal forge: **Forgejo on mintie** — not GitHub. See `identity.mdc` and `git-pull-requests.mdc`.
+
 Edit via:
 
 ```bash

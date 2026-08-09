@@ -1,5 +1,5 @@
 ---
-description: Doug identity, pronouns, and GitHub username for links
+description: Doug identity and self-hosted Forgejo (not GitHub) for personal work
 alwaysApply: true
 ---
 
@@ -7,4 +7,10 @@ alwaysApply: true
 
 The "User" is Doug, pronouns he/him, refer to him as either that or an acceptable nickname as your personality allows.
 
-My github username is dougfinnie, so when referencing my repositories and linking to my profile, remember this.
+Doug’s personal forge is **self-hosted Forgejo** on mintie — not GitHub. Prefer Forgejo clone/SSH URLs and Forgejo project links for his repos and profile. Do not default to GitHub usernames, `github.com/dougfinnie`, or GitHub as his home forge.
+
+Typical Git SSH (Forgejo):
+
+`ssh://git@mintie.grouse-matrix.ts.net:222/doug/<repo>.git`
+
+(Host alias `mintie-git` in SSH config targets the same Forgejo Git service.)

@@ -1,30 +1,37 @@
 ---
-description: GitHub PR creation via gh — status/diff/log then push and gh pr create
+description: Pull requests — Forgejo-first for personal repos; gh only for github.com remotes
 alwaysApply: true
 ---
 
 # Creating pull requests
 
-Use the gh command via the Shell tool for ALL GitHub-related tasks including working with issues, pull requests, checks, and releases. If given a Github URL use the gh command to get the information needed.
+Doug’s personal work uses **self-hosted Forgejo** (mintie). Do **not** use GitHub, `gh`, or `dougfinnie` GitHub links for his repos.
 
-IMPORTANT: When the user asks you to create a pull request, follow these steps carefully:
+## Personal / Forgejo remotes
 
-1. You can call multiple tools in a single response. When multiple independent pieces of information are requested, batch your tool calls together for optimal performance. ALWAYS run the following shell commands in parallel using the Shell tool, in order to understand the current state of the branch since it diverged from the main branch:
- - Run a git status command to see all untracked files
- - Run a git diff command to see both staged and unstaged changes that will be committed
- - Check if the current branch tracks a remote branch and is up to date with the remote, so you know if you need to push to the remote
- - Run a git log command and `git diff [base-branch]...HEAD` to understand the full commit history for the current branch (from the time it diverged from the base branch)
-2. Analyze all changes that will be included in the pull request, making sure to look at all relevant commits (NOT just the latest commit, but ALL commits that will be included in the pull request!!!), and draft a pull request summary
-3. Run the following commands sequentially:
- - Create new branch if needed
- - Push to remote with -u flag if needed
- - Create PR using gh pr create with the format below. Use a HEREDOC to pass the body to ensure correct formatting.
+When the user asks for a pull request and `origin` (or the relevant remote) is Forgejo / `mintie` / `mintie-git` / `*.grouse-matrix.ts.net:222`:
+
+1. In parallel: `git status`, `git diff`, remote tracking check, `git log` and `git diff [base-branch]...HEAD` for the full branch history.
+2. Summarize **all** commits that will be in the PR.
+3. Sequentially: create branch if needed, `git push -u` to the Forgejo remote, then open or return a Forgejo compare/PR URL (do not call `gh`).
+
+Example push:
 
 ```
-# First, push the branch (with required_permissions: ["all"])
+git push -u origin HEAD
+```
+
+Then give Doug the Forgejo UI link to open the PR (from the remote’s web base + compare/new PR path), or use a Forgejo/Gitea CLI if one is installed and configured — never `gh` for these remotes.
+
+## Third-party github.com remotes only
+
+Use the `gh` command **only** when the remote is actually on `github.com` (employer or upstream) and the user asked for GitHub issues/PRs/checks/releases. If given a `github.com` URL, `gh` is appropriate for that host alone.
+
+When creating a GitHub PR with `gh`, after the parallel status/diff/log steps:
+
+```
 git push -u origin HEAD
 
-# Then create the PR (with required_permissions: ["all"])
 gh pr create --title "the pr title" --body "$(cat <<'EOF'
 ## Summary
 <1-3 bullet points>
@@ -40,4 +47,5 @@ Important:
 
 - NEVER update the git config
 - DO NOT use the TodoWrite or Task tools
-- Return the PR URL when you're done, so the user can see it
+- Return the PR URL when done
+- Prefer Forgejo whenever the repo is Doug’s personal / mintie-hosted work
